@@ -1,0 +1,161 @@
+/**
+ * @file Firebase Security Rules for MySuCasa Application
+ * @description This ruleset enforces a strict user-ownership model for user profiles, roommate searches, property recommendations, and search criteria.
+ *  Properties are publicly readable but only the seller can modify them.
+ *
+ * @dataStructure
+ * - `/users/{userId}`: Stores user profiles; only the user can read/write their own profile.
+ * - `/properties/{propertyId}`: Stores property listings; publicly readable, but only the seller can modify.
+ * - `/users/{userId}/roommateSearches/{roommateSearchId}`: Stores roommate searches; only the user can read/write their own searches.
+ * - `/users/{userId}/propertyRecommendations/{propertyRecommendationId}`: Stores property recommendations; only the user can read/write their own recommendations.
+ * - `/users/{userId}/searchCriteria/{searchCriteriaId}`: Stores saved search criteria; only the user can read/write their own search criteria.
+ *
+ * @keySecurityDecisions
+ * - Users can only access their own data under the `/users/{userId}` path.
+ * - Properties are publicly readable, enabling wide visibility. Writes are restricted to the seller.
+ * - Listing of users is not permitted to protect user privacy.
+ * - Ambiguous relationships default to owner-only access.
+ *
+ * @denormalizationForAuthorization
+ * - Property documents include a `sellerId` field to enforce write access control.
+ *
+ * @structuralSegregation
+ * - User-specific data is stored under the `/users/{userId}` collection.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Controls access to user profiles.
+     * @path /users/{userId}
+     * @allow (create) User with ID 'user123' creates their profile.
+     * @allow (get) User with ID 'user123' reads their own profile.
+     * @deny (get) User with ID 'user456' tries to read user 'user123's profile.
+     * @principle Enforces document ownership for all operations.
+     */
+    match /users/{userId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+      // function isExistingOwner(userId) {
+      //   return isSignedIn() && resource.data.userId == request.auth.uid;
+      // }
+
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if false;
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId);
+      allow delete: if isSignedIn() && isOwner(userId);
+    }
+
+    /**
+     * @description Controls access to property listings.
+     * @path /properties/{propertyId}
+     * @allow (get) Any user can view a property listing.
+     * @allow (list) Any user can list property listings.
+     * @allow (create) User with ID 'seller123' creates a property listing.
+     * @deny (update) User with ID 'buyer456' tries to update a property listing owned by 'seller123'.
+     * @deny (delete) User with ID 'buyer456' tries to delete a property listing owned by 'seller123'.
+     * @principle Allows public read access with owner-only writes.
+     */
+    match /properties/{propertyId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+      // function isOwner(sellerId) {
+      //   return request.auth.uid == sellerId;
+      // }
+      function isExistingOwner() {
+        return isSignedIn() && resource.data.sellerId == request.auth.uid;
+      }
+
+      allow get: if true;
+      allow list: if true;
+      allow create: if isSignedIn() && request.resource.data.sellerId == request.auth.uid;
+      allow update: if isSignedIn() && isExistingOwner();
+      allow delete: if isSignedIn() && isExistingOwner();
+    }
+
+    /**
+     * @description Controls access to roommate searches.
+     * @path /users/{userId}/roommateSearches/{roommateSearchId}
+     * @allow (create) User with ID 'user123' creates a roommate search.
+     * @allow (get) User with ID 'user123' reads their own roommate search.
+     * @deny (get) User with ID 'user456' tries to read roommate search of user 'user123'.
+     * @principle Enforces document ownership for all operations.
+     */
+    match /users/{userId}/roommateSearches/{roommateSearchId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+      // function isExistingOwner(userId) {
+      //   return isSignedIn() && resource.data.userId == request.auth.uid;
+      // }
+
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if isSignedIn() && isOwner(userId);
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId);
+      allow delete: if isSignedIn() && isOwner(userId);
+    }
+
+    /**
+     * @description Controls access to property recommendations.
+     * @path /users/{userId}/propertyRecommendations/{propertyRecommendationId}
+     * @allow (create) User with ID 'user123' creates a property recommendation.
+     * @allow (get) User with ID 'user123' reads their own property recommendation.
+     * @deny (get) User with ID 'user456' tries to read property recommendation of user 'user123'.
+     * @principle Enforces document ownership for all operations.
+     */
+    match /users/{userId}/propertyRecommendations/{propertyRecommendationId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+      // function isExistingOwner(userId) {
+      //   return isSignedIn() && resource.data.userId == request.auth.uid;
+      // }
+
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if isSignedIn() && isOwner(userId);
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId);
+      allow delete: if isSignedIn() && isOwner(userId);
+    }
+
+    /**
+     * @description Controls access to search criteria.
+     * @path /users/{userId}/searchCriteria/{searchCriteriaId}
+     * @allow (create) User with ID 'user123' creates a search criteria.
+     * @allow (get) User with ID 'user123' reads their own search criteria.
+     * @deny (get) User with ID 'user456' tries to read search criteria of user 'user123'.
+     * @principle Enforces document ownership for all operations.
+     */
+    match /users/{userId}/searchCriteria/{searchCriteriaId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+      // function isExistingOwner(userId) {
+      //   return isSignedIn() && resource.data.userId == request.auth.uid;
+      // }
+
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if isSignedIn() && isOwner(userId);
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId);
+      allow delete: if isSignedIn() && isOwner(userId);
+    }
+  }
+}

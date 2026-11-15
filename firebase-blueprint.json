@@ -1,0 +1,358 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the MySuCasa platform.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user.",
+          "format": "uuid"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "The first name of the user."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The last name of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the user.",
+          "format": "email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the user."
+        },
+        "userType": {
+          "type": "string",
+          "description": "The type of user (e.g., buyer, seller, renter, investor, roommate seeker).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "searchCriteria": {
+          "type": "string",
+          "description": "The search criteria for the property."
+        }
+      },
+      "required": [
+        "id",
+        "firstName",
+        "lastName",
+        "email",
+        "phone",
+        "userType",
+        "searchCriteria"
+      ]
+    },
+    "Property": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Property",
+      "type": "object",
+      "description": "Represents a property listed on the MySuCasa platform.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the property.",
+          "format": "uuid"
+        },
+        "address": {
+          "type": "string",
+          "description": "The address of the property."
+        },
+        "price": {
+          "type": "number",
+          "description": "The price of the property."
+        },
+        "size": {
+          "type": "number",
+          "description": "The size of the property in square feet."
+        },
+        "propertyType": {
+          "type": "string",
+          "description": "The type of property (e.g., house, apartment, condo).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "listingType": {
+          "type": "string",
+          "description": "Type of listing (e.g. for sale, for rent)."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the property."
+        },
+        "amenities": {
+          "type": "array",
+          "description": "A list of amenities available at the property.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "photoUrls": {
+          "type": "array",
+          "description": "URLs of photos of the property.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sellerId": {
+          "type": "string",
+          "description": "Reference to the User representing the seller of the property. (Relationship: User 1:N Property)"
+        }
+      },
+      "required": [
+        "id",
+        "address",
+        "price",
+        "size",
+        "propertyType",
+        "description",
+        "amenities",
+        "photoUrls",
+        "sellerId"
+      ]
+    },
+    "RoommateSearch": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "RoommateSearch",
+      "type": "object",
+      "description": "Represents a user's search criteria for finding a roommate.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the roommate search.",
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the User looking for a roommate. (Relationship: User 1:N RoommateSearch)"
+        },
+        "locationPreferences": {
+          "type": "string",
+          "description": "Preferred locations for finding a roommate."
+        },
+        "budget": {
+          "type": "number",
+          "description": "Budget for shared accommodation."
+        },
+        "lifestylePreferences": {
+          "type": "string",
+          "description": "Lifestyle preferences for potential roommates."
+        },
+        "interests": {
+          "type": "array",
+          "description": "Common interests for matching with roommates.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "locationPreferences",
+        "budget",
+        "lifestylePreferences",
+        "interests"
+      ]
+    },
+    "PropertyRecommendation": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PropertyRecommendation",
+      "type": "object",
+      "description": "Represents a property recommendation generated by the AI algorithm.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the property recommendation.",
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the User who received the recommendation. (Relationship: User 1:N PropertyRecommendation)"
+        },
+        "propertyId": {
+          "type": "string",
+          "description": "Reference to the Property being recommended. (Relationship: Property 1:N PropertyRecommendation)"
+        },
+        "recommendationScore": {
+          "type": "number",
+          "description": "Score indicating the suitability of the property for the user."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reasoning behind the recommendation."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "propertyId",
+        "recommendationScore",
+        "reason"
+      ]
+    },
+    "SearchCriteria": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "SearchCriteria",
+      "type": "object",
+      "description": "Represents the search criteria saved by a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the search criteria.",
+          "format": "uuid"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the User who saved the search criteria. (Relationship: User 1:N SearchCriteria)"
+        },
+        "location": {
+          "type": "string",
+          "description": "The location specified in the search criteria."
+        },
+        "minPrice": {
+          "type": "number",
+          "description": "The minimum price specified in the search criteria."
+        },
+        "maxPrice": {
+          "type": "number",
+          "description": "The maximum price specified in the search criteria."
+        },
+        "minSize": {
+          "type": "number",
+          "description": "The minimum size specified in the search criteria."
+        },
+        "maxSize": {
+          "type": "number",
+          "description": "The maximum size specified in the search criteria."
+        },
+        "propertyTypes": {
+          "type": "array",
+          "description": "The property types specified in the search criteria.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "location",
+        "minPrice",
+        "maxPrice",
+        "minSize",
+        "maxSize",
+        "propertyTypes"
+      ]
+    },
+    "Seller": {
+      "title": "Seller",
+      "type": "object",
+      "description": "Represents a property seller.",
+      "properties": {
+        "name": { "type": "string", "description": "Seller's full name." },
+        "email": { "type": "string", "format": "email", "description": "Seller's email address." },
+        "phone": { "type": "string", "description": "Seller's phone number." },
+        "profilePhoto": { "type": "string", "format": "uri", "description": "URL of the seller's profile photo." },
+        "rating": { "type": "number", "description": "Seller's rating out of 5." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp of when the seller account was created." }
+      },
+      "required": ["name", "email", "phone", "createdAt"]
+    },
+    "PropertyListing": {
+      "title": "Property Listing",
+      "type": "object",
+      "description": "Represents a single property listed by a seller.",
+      "properties": {
+        "title": { "type": "string", "description": "Title of the property listing." },
+        "type": { "type": "string", "description": "Type of property (e.g., Apartment, House)." },
+        "location": {
+          "type": "object",
+          "properties": {
+            "city": { "type": "string" },
+            "state": { "type": "string" }
+          },
+          "required": ["city", "state"]
+        },
+        "price": { "type": "number" },
+        "description": { "type": "string" },
+        "images": { "type": "array", "items": { "type": "string", "format": "uri" } },
+        "status": { "type": "string", "enum": ["available", "sold"] },
+        "listedAt": { "type": "string", "format": "date-time" },
+        "aiSuggestions": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["title", "type", "location", "price", "description", "images", "status", "listedAt"]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profiles.  Access is restricted to the user themselves (path-based ownership).",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/sellers/{sellerId}",
+        "definition": {
+          "entityName": "Seller",
+          "schema": {
+            "$ref": "#/backend/entities/Seller"
+          },
+          "description": "Stores seller profiles.",
+          "params": [
+            {
+              "name": "sellerId",
+              "description": "The unique identifier of the seller."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/sellers/{sellerId}/properties/{propertyId}",
+        "definition": {
+          "entityName": "PropertyListing",
+          "schema": {
+            "$ref": "#/backend/entities/PropertyListing"
+          },
+          "description": "Stores property listings for each seller. Access is restricted to the seller.",
+          "params": [
+            {
+              "name": "sellerId",
+              "description": "The unique identifier of the seller."
+            },
+            {
+              "name": "propertyId",
+              "description": "The unique identifier of the property listing."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to support the MySuCasa AI Finder application, focusing on property listings, user accounts, and AI-powered recommendations. It incorporates key principles like Authorization Independence, Structural Segregation, and Access Modeling to ensure security, scalability, and debuggability.  User data, property listings, roommate searches, and recommendations are stored in separate collections, with clear ownership and access control mechanisms.  The structure avoids hierarchical authorization dependencies by denormalizing necessary authorization data directly into the documents.  This allows for atomic operations and simpler, more robust security rules.  The data structure facilitates secure `list` operations by ensuring that each collection has a homogeneous security posture."
+  }
+}

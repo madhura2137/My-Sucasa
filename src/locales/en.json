@@ -1,0 +1,132 @@
+
+{
+  "properties": "Properties",
+  "dashboard": "Dashboard",
+  "admin": "Admin",
+  "profile": "Profile",
+  "settings": "Settings",
+  "signOut": "Sign Out",
+  "logIn": "Log In",
+  "signUp": "Sign Up",
+  "welcomeToMySuCasa": "Welcome to MySuCasa",
+  "tagline": "The future of real estate is here. Experience intelligent property solutions tailored just for you.",
+  "getStarted": "Get Started",
+  "howCanIHelp": "How can I help you today?",
+  "selectRole": "Select your role to begin your AI-powered journey.",
+  "login": {
+    "welcome": "Welcome Back",
+    "description": "Enter your email below to login to your account",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "forgotPassword": "Forgot your password?",
+    "loginButton": "Login",
+    "loginWithGoogle": "Login with Google",
+    "noAccount": "Don't have an account?"
+  },
+  "signup": {
+    "title": "Create an account",
+    "description": "Enter your information to create an account",
+    "nameLabel": "Name",
+    "usernameLabel": "Username",
+    "phoneLabel": "Phone Number",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "createButton": "Create an account",
+    "signupWithGoogle": "Sign up with Google",
+    "haveAccount": "Already have an account?"
+  },
+  "dashboard": {
+    "title": "MySuCasa AI Dashboard",
+    "description": "Your intelligent real estate command center.",
+    "cards": {
+      "buyer": {
+        "title": "Buyer",
+        "description": "Looking to buy a property",
+        "aiFeature": "Smart Property Matching"
+      },
+      "seller": {
+        "title": "Seller",
+        "description": "Looking to sell your property",
+        "aiFeature": "AI Valuation Engine"
+      },
+      "renter": {
+        "title": "Renter",
+        "description": "Looking to rent a property",
+        "aiFeature": "AI Rental Analysis"
+      },
+      "listProperty": {
+        "title": "List Property for Rent",
+        "description": "Rent out your own property",
+        "aiFeature": "Smart Pricing AI"
+      },
+      "investor": {
+        "title": "Investor",
+        "description": "Looking for investment opportunities",
+        "aiFeature": "Market Prediction AI"
+      },
+      "roommate": {
+        "title": "Looking for a Roommate",
+        "description": "Find your perfect roommate match",
+        "aiFeature": "Compatibility Matching"
+      }
+    }
+  },
+  "home": {
+    "roles": {
+      "buyer": {
+        "title": "Buyer",
+        "description": "Find your dream home with AI-powered search and personalized recommendations. Here is your path to homeownership:",
+        "step1": "Define your budget and preferences.",
+        "step2": "Explore AI-curated property listings.",
+        "step3": "Schedule viewings for your favorite homes.",
+        "step4": "Make an offer and negotiate with AI assistance.",
+        "step5": "Secure financing and close the deal."
+      },
+      "renter": {
+        "title": "Renter",
+        "description": "Discover the perfect rental property with our smart matching technology. Follow these steps to find your next home:",
+        "step1": "Set your rental budget and desired location.",
+        "step2": "Browse through AI-matched rental properties.",
+        "step3": "Take virtual tours or schedule in-person visits.",
+        "step4": "Submit your application and documents online.",
+        "step5": "Sign the lease and move into your new home."
+      },
+      "seller": {
+        "title": "Seller",
+        "description": "Maximize your property's value with AI-driven market analysis. Here's how to get the best price for your home:",
+        "step1": "Get an instant AI-powered home valuation.",
+        "step2": "List your property with an optimized description.",
+        "step3": "Receive and manage offers from potential buyers.",
+        "step4": "Use AI insights to negotiate the best deal.",
+        "step5": "Complete the sale and transfer ownership."
+      },
+      "investor": {
+        "title": "Investor",
+        "description": "Identify high-yield investment opportunities with predictive analytics. Your journey to smart real estate investing starts here:",
+        "step1": "Define your investment goals and risk appetite.",
+        "step2": "Analyze market trends with our AI-powered tools.",
+        "step3": "Discover properties with high ROI potential.",
+        "step4": "Perform due diligence with AI assistance.",
+        "step5": "Build and manage your real estate portfolio."
+      },
+      "listProperty": {
+        "title": "List Property for Rent",
+        "description": "Find the perfect tenants for your rental property, powered by AI. Follow these simple steps:",
+        "step1": "Describe your property and set the rental terms.",
+        "step2": "Our AI generates an attractive listing for you.",
+        "step3": "Screen and communicate with potential tenants.",
+        "step4": "Manage lease agreements and rent collection.",
+        "step5": "Keep your property occupied and profitable."
+      },
+      "roommate": {
+        "title": "Find a Roommate",
+        "description": "Looking for the ideal roommate? Our AI helps you find the perfect match based on lifestyle and preferences.",
+        "step1": "Create your personal profile and preferences.",
+        "step2": "Browse compatible roommate profiles.",
+        "step3": "Connect and chat with potential matches securely.",
+        "step4": "Meet up and decide on your new roommate.",
+        "step5": "Start your new shared living arrangement."
+      }
+    }
+  }
+}

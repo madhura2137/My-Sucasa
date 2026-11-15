@@ -1,0 +1,9 @@
+{
+  "property_id": "PROP-DEMO-001",
+  "title": "Sunny Pune Apartment",
+  "location": "Pune, Maharashtra",
+  "property_type": "Apartment",
+  "bedrooms": 2,
+  "price_inr": 7500000,
+  "description": "Sample property record for the cloud infrastructure practical."
+}

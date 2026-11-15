@@ -1,0 +1,10 @@
+{
+  "Records": [
+    {
+      "s3": {
+        "bucket": {"name": "YOUR-BUCKET-NAME"},
+        "object": {"key": "property/sample-listing.json"}
+      }
+    }
+  ]
+}
